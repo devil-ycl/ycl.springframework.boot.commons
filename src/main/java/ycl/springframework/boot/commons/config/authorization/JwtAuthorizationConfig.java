@@ -1,11 +1,12 @@
 package ycl.springframework.boot.commons.config.authorization;
 
 import cn.hutool.core.util.StrUtil;
+import com.alibaba.fastjson2.JSONObject;
 import io.jsonwebtoken.Claims;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Component;
-import org.springframework.web.servlet.HandlerInterceptor;
 import ycl.springframework.boot.commons.ApiResult;
+import ycl.springframework.boot.commons.base.entity.SecurityUser;
 import ycl.springframework.boot.commons.constants.GlobalConstant;
 import ycl.springframework.boot.commons.enums.ApiResultEnum;
 import ycl.springframework.boot.commons.utils.JwtUtil;
@@ -19,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  * @date 2022/11/12 0012 21:43
  */
 @Component
-public class JwtAuthorizationConfig implements HandlerInterceptor {
+public class JwtAuthorizationConfig implements AuthorizationHandler {
 
 
 	@Override
@@ -39,4 +40,18 @@ public class JwtAuthorizationConfig implements HandlerInterceptor {
 		}
 		return true;
 	}
+
+	@Override
+	public boolean isLogin(HttpServletRequest request) {
+		Claims claims = JwtUtil.analysisToken(request.getHeader(GlobalConstant.TOKEN), false);
+		return claims != null;
+	}
+
+	@Override
+	public SecurityUser getLoginUser(HttpServletRequest request) {
+		Claims claims = JwtUtil.analysisToken(request.getHeader(GlobalConstant.TOKEN));
+		return JSONObject.parseObject(JSONObject.toJSONString(claims), SecurityUser.class);
+	}
+
+
 }

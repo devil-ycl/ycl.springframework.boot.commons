@@ -1,10 +1,10 @@
 package ycl.springframework.boot.commons.config;
 
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import ycl.springframework.boot.commons.config.authorization.AuthorizationHandler;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ public class CorsConfig implements WebMvcConfigurer {
 
 
 	@Resource
-	private HandlerInterceptor handlerInterceptor;
+	private AuthorizationHandler authorizationHandler;
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -48,11 +48,12 @@ public class CorsConfig implements WebMvcConfigurer {
 		//放行特例资源
 		paths.add("/region-country/getAll");
 		paths.add("/sms/**");
+		paths.add("/test/**");
 		paths.add("/region/**");
 		paths.add("/login/**");
 		paths.add("/upload/**");
 		paths.add("/gps/**");
-		registry.addInterceptor(handlerInterceptor)
+		registry.addInterceptor(authorizationHandler)
 				.addPathPatterns("/*", "/**", "/**/**")
 				.excludePathPatterns(paths);
 	}
