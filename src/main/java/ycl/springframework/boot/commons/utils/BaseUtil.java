@@ -8,6 +8,7 @@ import org.springframework.core.type.AnnotationMetadata;
  * @author YCL
  * @date 2022/11/12 0012 21:06
  */
+@Deprecated
 public class BaseUtil {
 
 	public static void getPackage(AnnotationMetadata metadata) {

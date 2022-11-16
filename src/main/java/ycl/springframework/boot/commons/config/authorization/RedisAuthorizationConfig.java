@@ -21,11 +21,13 @@ import javax.servlet.http.HttpServletResponse;
 @Component
 public class RedisAuthorizationConfig implements AuthorizationHandler {
 
-@Resource
+	@Resource
 	private StringRedisTemplate stringRedisTemplate;
 
 	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+	public boolean preHandle(HttpServletRequest request,
+							 HttpServletResponse response,
+							 Object handler) throws Exception {
 		String token = request.getHeader(GlobalConstant.TOKEN);
 		//在redis里查用户登录信息
 		String key = RedisConstant.getLoginUserKey(token);

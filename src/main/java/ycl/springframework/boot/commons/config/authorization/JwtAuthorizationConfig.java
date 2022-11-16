@@ -17,7 +17,9 @@ public class JwtAuthorizationConfig implements AuthorizationHandler {
 
 
 	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+	public boolean preHandle(HttpServletRequest request,
+							 HttpServletResponse response,
+							 Object handler) throws Exception {
 		String token = request.getHeader(GlobalConstant.TOKEN);
 		verifyTokenIsNull(token, response);
 		JwtUtil.analysisToken(token);
