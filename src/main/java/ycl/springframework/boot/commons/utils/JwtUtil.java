@@ -10,6 +10,7 @@ import ycl.springframework.boot.commons.enums.ApiResultEnum;
 import ycl.springframework.boot.commons.enums.JWTEnum;
 import ycl.springframework.boot.commons.exception.CustomException;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,7 +32,7 @@ public class JwtUtil {
 	 * @param user 用户
 	 * @return token
 	 */
-	public static String createToken(SecurityUser user) {
+	public static void createToken(@NotNull(message = "未找到用户") SecurityUser user) {
 		String username = user.getUsername();
 		Map<String, Object> userInfo = BeanConvertUtil.convertMap(user);
 		Map<String, Object> map = new HashMap<>(userInfo);
@@ -44,12 +45,8 @@ public class JwtUtil {
 				.setExpiration(new Date(System.currentTimeMillis() + EXPIRE_TIME))
 				.signWith(SignatureAlgorithm.HS256, SecurityConstant.SIGN_KEY)
 				.compact();
-		return TOKEN_PREFIX + token;
+		user.setToken(TOKEN_PREFIX + token);
 	}
-
-
-
-
 
 
 	/**
@@ -59,6 +56,16 @@ public class JwtUtil {
 	 * @return 主体
 	 */
 	public static Claims analysisToken(String token) {
+		return analysisToken(token, true);
+	}
+
+	/**
+	 * 解析token, 解析有异常返回null
+	 *
+	 * @param token token
+	 * @return 主体
+	 */
+	public static Claims analysisToken(String token, boolean thr) {
 		try {
 			String s = token.substring(TOKEN_PREFIX.length());
 			return Jwts.parser()
@@ -66,8 +73,10 @@ public class JwtUtil {
 					.parseClaimsJws(s)
 					.getBody();
 		} catch (Exception ignored) {
-			throw new CustomException(ApiResultEnum.SC_UNAUTHORIZED);
+			if (thr)
+				throw new CustomException(ApiResultEnum.SC_UNAUTHORIZED);
 		}
+		return null;
 	}
 
 

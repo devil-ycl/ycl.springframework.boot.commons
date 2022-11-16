@@ -6,7 +6,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import ycl.springframework.boot.commons.config.authorization.JwtAuthorizationConfig;
 import ycl.springframework.boot.commons.config.authorization.RedisAuthorizationConfig;
 import ycl.springframework.boot.commons.enums.AuthorizationMethodEnum;
-import ycl.springframework.boot.commons.properties.AuthorizationProperties;
+import ycl.springframework.boot.commons.properties.ProjectProperties;
 
 import javax.annotation.Resource;
 
@@ -18,16 +18,18 @@ import javax.annotation.Resource;
 public class AuthorizationMethodConfig {
 
 	@Resource
-	private AuthorizationProperties authorizationProperties;
+	private ProjectProperties projectProperties;
 
 	@Bean
-	public HandlerInterceptor handlerInterceptor(){
-		AuthorizationMethodEnum method = authorizationProperties.getMethod();
-		if (method.equals(AuthorizationMethodEnum.JWT))
-			return new JwtAuthorizationConfig();
-		else if (method.equals(AuthorizationMethodEnum.REDIS))
-			return new RedisAuthorizationConfig();
-		else
-			throw new IllegalArgumentException("login method is not configuration, unable to start.");
+	public HandlerInterceptor handlerInterceptor() {
+		AuthorizationMethodEnum method = projectProperties.getMethod();
+		switch (method) {
+			case MYSQL:
+			case REDIS:
+				return new RedisAuthorizationConfig();
+			case JWT:
+			default:
+				return new JwtAuthorizationConfig();
+		}
 	}
 }

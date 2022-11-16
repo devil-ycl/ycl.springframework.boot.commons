@@ -16,7 +16,7 @@ import java.lang.reflect.Method;
 /**
  * 注解工具
  *
- * @author: YCL
+ * @author YCL
  * @date: 2021-08-23 21:35:34
  */
 public class AnnotationUtil {
@@ -34,18 +34,9 @@ public class AnnotationUtil {
 		String s = null;
 		if (annotation != null)
 			s = annotation.value();
-		tableNameNotBlank(s);
+		if (StrUtil.isBlank(s))
+			throw new IllegalArgumentException("非法异常: 实体类" + c + "未加上表名");
 		return s;
-	}
-
-	/**
-	 * 表名非空校验
-	 *
-	 * @param tableName 表名
-	 */
-	private static void tableNameNotBlank(String tableName) {
-		if (StrUtil.isBlank(tableName))
-			throw new IllegalArgumentException("非法异常: 本实体类未加上表名");
 	}
 
 

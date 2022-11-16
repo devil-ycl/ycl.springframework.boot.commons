@@ -1,0 +1,30 @@
+mybatis-plus:
+    configuration:
+        log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+spring:
+    datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        username: root
+        password: '0000'
+        druid:
+            filters: stat
+            maxActive: 20
+            initialSize: 5
+            maxWait: 60000
+            minIdle: 1
+            timeBetweenEvictionRunsMillis: 60000
+            minEvictableIdleTimeMillis: 300000
+            validationQuery: select 'x'
+            testWhileIdle: true
+            testOnBorrow: false
+            testOnReturn: false
+            poolPreparedStatements: true
+            maxOpenPreparedStatements: 20
+
+knife4j:
+    enable: true
+
+
+
+
+

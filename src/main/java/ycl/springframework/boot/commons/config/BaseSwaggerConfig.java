@@ -1,11 +1,13 @@
 package ycl.springframework.boot.commons.config;
 
-import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
+import cn.hutool.core.lang.Assert;
+import com.google.common.base.Function;
+import com.google.common.base.Optional;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import springfox.documentation.RequestHandler;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
@@ -15,23 +17,34 @@ import ycl.springframework.boot.commons.constants.GlobalConstant;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * swagger配置
  *
- * @author: YCL
- * @date: 2021-06-06 15:00:00
+ * @author YCL
+ * @date 2021-06-06 15:00:00
  */
 @Configuration
-@EnableKnife4j
 @EnableSwagger2
-public class SwaggerConfig {
+public abstract class BaseSwaggerConfig {
 
-	private final String packageImport = "ycl.springframework.controller";
-	private final String title = "swagger测试";
-	private final String description = "swagger-bootstrap-ui";
-	private final String serviceUrl = "http://localhost:8079/";
+	private final String packageImport;
+	private final String[] commonControllerPackages = {
+			"ycl.springframework.boot.commons.base.controller",
+	};
+	private final String title;
+	private final String description = "swagger";
+	private final String serviceUrl = "none";
 	private final String version = "1.0";
+
+
+	public BaseSwaggerConfig(String packageImport, String title) {
+		Assert.notBlank(packageImport,
+				"you will write your controller package to application.yml, key: project.controllerPackage");
+		this.packageImport = packageImport;
+		this.title = title;
+	}
 
 	@Bean
 	public Docket createSwaggerApi() {
@@ -39,11 +52,35 @@ public class SwaggerConfig {
 				.useDefaultResponseMessages(false)
 				.apiInfo(apiInfo())
 				.select()
-				.apis(RequestHandlerSelectors.basePackage(packageImport))
+				.apis(getPackages())
 				.paths(PathSelectors.any())
 				.build()
 				.securitySchemes(securitySchemes())
 				.securityContexts(securityContexts());
+	}
+
+	private Predicate<RequestHandler> getPackages() {
+		int length = commonControllerPackages.length;
+		String[] pkg = new String[commonControllerPackages.length + 1];
+		System.arraycopy(commonControllerPackages, 0, pkg, 0, length);
+		pkg[length] = packageImport;
+		return v -> declaring(v).transform(handlerPackage(pkg)).or(true);
+	}
+
+	@SuppressWarnings("all")
+	private Optional<? extends Class<?>> declaring(RequestHandler handler) {
+		return Optional.fromNullable(handler.declaringClass());
+	}
+
+	@SuppressWarnings("all")
+	private Function<Class<?>, Boolean> handlerPackage(String[] packages) {
+		return v -> {
+			for (String p : packages) {
+				if (v.getPackage().getName().startsWith(p))
+					return true;
+			}
+			return false;
+		};
 	}
 
 
@@ -59,7 +96,7 @@ public class SwaggerConfig {
 	/**
 	 * 全局认证
 	 *
-	 * @return
+	 * @return 集合
 	 */
 	private List<SecurityReference> securityReferences() {
 		AuthorizationScope scope = new AuthorizationScope("global", "accessEverything");
@@ -73,7 +110,7 @@ public class SwaggerConfig {
 	/**
 	 * 默认请求头token
 	 *
-	 * @return
+	 * @return 集合
 	 */
 	private List<SecurityScheme> securitySchemes() {
 		ArrayList<SecurityScheme> list = new ArrayList<>();

@@ -3,6 +3,8 @@ package ycl.springframework.boot.commons.constants;
 import cn.hutool.core.lang.Assert;
 import ycl.springframework.boot.commons.enums.UserTypeEnum;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * redis常量参数
  *
@@ -20,6 +22,8 @@ public final class RedisConstant {
 	public final static int LOCK_MINUTE = 10;
 	//有效时间
 	public final static long LOGIN_EFFECTIVE_TIME = 12;
+	//时间单位
+	public final static TimeUnit TIME_UNIT= TimeUnit.HOURS;
 	//邮件
 	public final static String EMAIL = "EMAIL:";
 	//邮件次数

@@ -7,12 +7,13 @@ import ycl.springframework.boot.commons.enums.AuthorizationMethodEnum;
 
 /**
  * @author YCL
- * @date 2022/11/12 0012 21:52
+ * @date 2022/11/16 0016 11:12
  */
 @Data
 @Component
-@ConfigurationProperties(prefix = "authorization")
-public class AuthorizationProperties {
+@ConfigurationProperties(prefix = "project")
+public class ProjectProperties {
 
-	private AuthorizationMethodEnum method;
+	private String controllerPackage;
+	private AuthorizationMethodEnum method = AuthorizationMethodEnum.JWT;
 }

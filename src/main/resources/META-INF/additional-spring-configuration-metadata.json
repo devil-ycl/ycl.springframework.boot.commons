@@ -1,0 +1,13 @@
+{
+	"properties": [
+		{
+			"name": "project.method",
+			"type": "ycl.springframework.boot.commons.enums.AuthorizationMethodEnum",
+			"description": "Description for project.method."
+		},
+		{
+			"name": "project.controllerPackage",
+			"type": "java.lang.String",
+			"description": "Description for project.method."
+		}
+	] }
