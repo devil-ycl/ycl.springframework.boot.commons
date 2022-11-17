@@ -23,7 +23,7 @@ public class CorsConfig implements WebMvcConfigurer {
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/**")
+		registry.addResourceHandler("/**", "/swagger-resources")
 				.addResourceLocations(
 						"classpath:/META-INF/resources/"
 						, "classpath:/resources/"
@@ -44,6 +44,7 @@ public class CorsConfig implements WebMvcConfigurer {
 		paths.add("/swagger-ui.html/**");
 		paths.add("/doc.html/**");
 		paths.add("/api-docs-ext/**");
+		paths.add("/error/**");
 
 		//放行特例资源
 		paths.add("/region-country/getAll");

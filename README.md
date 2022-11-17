@@ -18,33 +18,6 @@ project:
     method: REDIS
 ~~~
 
-## 须在自己的工程中配置swagger
-
-~~~java
-package ycl.springframework.test.config;
-
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
-import ycl.springframework.boot.commons.config.BaseSwaggerConfig;
-
-/**
- * swagger配置
- *
- * @author YCL
- * @date: 2021-06-06 15:00:00
- */
-@Configuration
-@EnableSwagger2
-public class SwaggerConfig extends BaseSwaggerConfig {
-
-	public SwaggerConfig(
-			@Value("${project.controllerPackage}") String packageImport) {
-		super(packageImport, "swagger-test");
-	}
-
-}
-~~~
 
 ## 代码生成工具
 

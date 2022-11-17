@@ -14,6 +14,10 @@ import ycl.springframework.boot.commons.enums.AuthorizationMethodEnum;
 @ConfigurationProperties(prefix = "project")
 public class ProjectProperties {
 
-	private String controllerPackage;
 	private AuthorizationMethodEnum method = AuthorizationMethodEnum.JWT;
+	private String controllerPackage;
+	private String title = "basic swagger tip";
+	private String description = "description";
+	private String serviceUrl = "serviceUrl";
+	private String version = "v1.0";
 }

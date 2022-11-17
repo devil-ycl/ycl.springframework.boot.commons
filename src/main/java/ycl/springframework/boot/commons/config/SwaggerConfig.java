@@ -14,7 +14,9 @@ import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import ycl.springframework.boot.commons.constants.GlobalConstant;
+import ycl.springframework.boot.commons.properties.ProjectProperties;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
@@ -27,24 +29,13 @@ import java.util.function.Predicate;
  */
 @Configuration
 @EnableSwagger2
-public abstract class BaseSwaggerConfig {
+public class SwaggerConfig {
 
-	private final String packageImport;
 	private final String[] commonControllerPackages = {
 			"ycl.springframework.boot.commons.base.controller",
 	};
-	private final String title;
-	private final String description = "swagger";
-	private final String serviceUrl = "none";
-	private final String version = "1.0";
-
-
-	public BaseSwaggerConfig(String packageImport, String title) {
-		Assert.notBlank(packageImport,
-				"you will write your controller package to application.yml, key: project.controllerPackage");
-		this.packageImport = packageImport;
-		this.title = title;
-	}
+	@Resource
+	private ProjectProperties projectProperties;
 
 	@Bean
 	public Docket createSwaggerApi() {
@@ -63,7 +54,9 @@ public abstract class BaseSwaggerConfig {
 		int length = commonControllerPackages.length;
 		String[] pkg = new String[commonControllerPackages.length + 1];
 		System.arraycopy(commonControllerPackages, 0, pkg, 0, length);
-		pkg[length] = packageImport;
+		String s = projectProperties.getControllerPackage();
+		Assert.notBlank(s, "you will write your controller package to application.yml, key: project.controllerPackage");
+		pkg[length] = s;
 		return v -> declaring(v).transform(handlerPackage(pkg)).or(true);
 	}
 
@@ -120,10 +113,10 @@ public abstract class BaseSwaggerConfig {
 
 	private ApiInfo apiInfo() {
 		return new ApiInfoBuilder()
-				.title(title)
-				.description(description)
-				.termsOfServiceUrl(serviceUrl)
-				.version(version)
+				.title(projectProperties.getTitle())
+				.description(projectProperties.getDescription())
+				.termsOfServiceUrl(projectProperties.getServiceUrl())
+				.version(projectProperties.getVersion())
 				.build();
 	}
 }

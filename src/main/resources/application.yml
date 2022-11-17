@@ -24,7 +24,13 @@ spring:
 knife4j:
     enable: true
 
-
+project:
+    method: REDIS
+    controllerPackage: ycl.springframework.test.controller
+    title: ttl
+    description: dst
+    serviceUrl: url
+    version: vsn
 
 
 

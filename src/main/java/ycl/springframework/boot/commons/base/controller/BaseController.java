@@ -2,13 +2,12 @@ package ycl.springframework.boot.commons.base.controller;
 
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ycl.springframework.boot.commons.ApiResult;
 import ycl.springframework.boot.commons.base.entity.BaseEntity;
 import ycl.springframework.boot.commons.base.service.BaseService;
-
-import javax.annotation.Resource;
 
 /**
  * @author YCL
@@ -17,7 +16,7 @@ import javax.annotation.Resource;
 @RestController
 public abstract class BaseController<T extends BaseEntity> {
 
-	@Resource
+	@Autowired
 	private BaseService<T> baseService;
 
 	@GetMapping("/getById")

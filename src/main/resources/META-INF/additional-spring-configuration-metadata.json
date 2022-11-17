@@ -9,5 +9,25 @@
 			"name": "project.controllerPackage",
 			"type": "java.lang.String",
 			"description": "Description for project.method."
+		},
+		{
+			"name": "project.title",
+			"type": "java.lang.String",
+			"description": "Description for project.title."
+		},
+		{
+			"name": "project.serviceUrl",
+			"type": "java.lang.String",
+			"description": "Description for project.serviceUrl."
+		},
+		{
+			"name": "project.version",
+			"type": "java.lang.String",
+			"description": "Description for project.version."
+		},
+		{
+			"name": "project.description",
+			"type": "java.lang.String",
+			"description": "Description for project.description."
 		}
 	] }
