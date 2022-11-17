@@ -61,4 +61,15 @@ public class HotelApplication {
 
 ~~~
 
+## 请实现 LoginService 中的登录注册方法不然无法启动
+~~~java
+
+import org.springframework.stereotype.Service;
+
+@Service
+public class XXXServiceImpl implements LoginService {
+}
+
+~~~
+
 # End

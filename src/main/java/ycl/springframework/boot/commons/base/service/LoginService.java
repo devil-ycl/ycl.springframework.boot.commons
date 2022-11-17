@@ -1,7 +1,10 @@
 package ycl.springframework.boot.commons.base.service;
 
+import cn.hutool.core.lang.Assert;
 import ycl.springframework.boot.commons.base.entity.SecurityUser;
 import ycl.springframework.boot.commons.enums.AuthorizationMethodEnum;
+import ycl.springframework.boot.commons.models.RegisterReq;
+import ycl.springframework.boot.commons.properties.ProjectProperties;
 import ycl.springframework.boot.commons.utils.JwtUtil;
 import ycl.springframework.boot.commons.utils.RedisUtil;
 
@@ -13,13 +16,19 @@ public interface LoginService {
 
 	SecurityUser loginByWechatId(String wechatId);
 
+	<E extends RegisterReq>void register(E e);
+
+	ProjectProperties properties();
+
 	/**
 	 * token 已保存到 user.token 里
 	 *
 	 * @param user   用户
-	 * @param method 登录方式
 	 */
-	default void saveToken(SecurityUser user, AuthorizationMethodEnum method) {
+	default void saveToken(SecurityUser user) {
+		ProjectProperties properties = this.properties();
+		Assert.notNull(properties,"please writed ProjectProperties in your service impl");
+		AuthorizationMethodEnum method = properties.getMethod();
 		switch (method) {
 			case MYSQL:
 			case REDIS:
@@ -31,4 +40,6 @@ public interface LoginService {
 				break;
 		}
 	}
+
+
 }
