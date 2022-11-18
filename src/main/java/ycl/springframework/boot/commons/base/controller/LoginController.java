@@ -14,6 +14,7 @@ import ycl.springframework.boot.commons.models.RegisterReq;
 import ycl.springframework.boot.commons.models.T;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author YCL
@@ -31,16 +32,16 @@ public class LoginController {
 
 	@PostMapping("/login")
 	@ApiOperation("登录, 用微信id")
-	public ApiResult<SecurityUser> loginByWechatId(ObjReq<String> objReq){
-		SecurityUser res = loginService.loginByWechatId(objReq.getObj());
+	public ApiResult<SecurityUser> loginByWechatId(HttpServletRequest request, ObjReq<String> objReq){
+		SecurityUser res = loginService.loginByWechatId(request, objReq.getObj());
 		loginService.saveToken(res);
 		return ApiResult.success(res);
 	}
 
 	@PostMapping("/register")
 	@ApiOperation("登录, 用微信id")
-	public <E extends RegisterReq> ApiResult<T> register(E e){
-		loginService.register(e);
+	public <E extends RegisterReq> ApiResult<T> register(HttpServletRequest request, E e){
+		loginService.register(request, e);
 		return ApiResult.success();
 	}
 }
