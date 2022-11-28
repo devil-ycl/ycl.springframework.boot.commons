@@ -27,7 +27,7 @@ project:
 package ycl.lingmeng.hotel.util;
 
 
-import ycl.springframework.boot.commons.models.CodeGeneratorReq;
+import CodeGeneratorReq;
 
 /**
  * @author YCL
@@ -43,7 +43,7 @@ public class CodeGeneratorUtil {
 				"root",
 				"0000",
 				"ycl");
-		ycl.springframework.boot.commons.utils.CodeGeneratorUtil.create(req);
+		CodeGeneratorUtil.create(req);
 	}
 
 }
