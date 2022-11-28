@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<packaging>jar</packaging>
-	<groupId>ycl.springframework</groupId>
-	<artifactId>ycl-commons</artifactId>
-	<version>ycl-boot-commons-v1</version>
+	<groupId>com.ycl.springframework.boot</groupId>
+	<artifactId>commons</artifactId>
+	<version>2022-OCT</version>
 	<name>ycl-commons</name>
 	<description>spring framework commons package</description>
 	<properties>
