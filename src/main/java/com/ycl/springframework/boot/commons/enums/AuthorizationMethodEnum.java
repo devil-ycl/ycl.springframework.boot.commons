@@ -1,5 +1,7 @@
 package com.ycl.springframework.boot.commons.enums;
 
+import cn.hutool.core.util.StrUtil;
+
 import java.util.Arrays;
 
 /**
@@ -20,10 +22,16 @@ public enum AuthorizationMethodEnum {
 	}
 
 	public static AuthorizationMethodEnum get(String s) {
+		if (StrUtil.isBlank(s))
+			return def();
 		return Arrays.stream(values())
 				.filter(v -> s.equals(v.string))
 				.findAny()
-				.orElse(JWT);
+				.orElse(def());
+	}
+
+	public static AuthorizationMethodEnum def(){
+		return JWT;
 	}
 
 
