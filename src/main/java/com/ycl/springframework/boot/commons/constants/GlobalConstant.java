@@ -12,5 +12,6 @@ public class GlobalConstant {
 	public static final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
 	public static final String DATE_PATTERN = "yyyy-MM-dd";
 	public static final String DATE_TIME_GMT8 = "GMT+8";
+	public static final String BASE_PACKAGE = "com.ycl.springframework.boot.commons";
 
 }

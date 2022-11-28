@@ -17,5 +17,5 @@ public @interface AuthorizationMethod {
 
 	boolean intercept() default true;
 
-	AuthorizationMethodEnum method() default AuthorizationMethodEnum.JWT;
+	AuthorizationMethodEnum method();
 }

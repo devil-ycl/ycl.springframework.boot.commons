@@ -32,7 +32,7 @@ import java.util.function.Predicate;
 public class SwaggerConfig {
 
 	private final String[] commonControllerPackages = {
-			"ycl.springframework.boot.commons.base.controller",
+			GlobalConstant.BASE_PACKAGE + ".base.controller",
 	};
 	@Resource
 	private ProjectProperties projectProperties;
