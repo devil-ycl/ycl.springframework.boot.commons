@@ -4,8 +4,6 @@ mybatis-plus:
 spring:
     datasource:
         driver-class-name: com.mysql.cj.jdbc.Driver
-        username: root
-        password: '0000'
         druid:
             filters: stat
             maxActive: 20

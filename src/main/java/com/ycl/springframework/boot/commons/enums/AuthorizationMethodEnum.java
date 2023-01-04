@@ -10,6 +10,7 @@ import java.util.Arrays;
  */
 public enum AuthorizationMethodEnum {
 
+	NONE("NONE"),
 	JWT("JWT"),
 	REDIS("REDIS"),
 	MYSQL("MYSQL"),
