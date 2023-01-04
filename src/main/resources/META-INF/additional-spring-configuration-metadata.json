@@ -2,7 +2,7 @@
 	"properties": [
 		{
 			"name": "project.method",
-			"type": "com.ycl.springframework.boot.commons.enums.AuthorizationMethodEnum",
+			"type": "ycl.springframework.boot.commons.enums.AuthorizationMethodEnum",
 			"description": "Description for project.method."
 		},
 		{
