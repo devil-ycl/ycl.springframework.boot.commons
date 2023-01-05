@@ -11,26 +11,10 @@
 	<packaging>jar</packaging>
 	<groupId>io.github.devil-ycl</groupId>
 	<artifactId>springframework-boot-commons</artifactId>
-	<version>2022-DEC</version>
+	<version>DEC.2022</version>
 	<name>${project.groupId}:${project.artifactId}</name>
 	<url>https://github.com/devil-ycl/ycl.springframework.boot.commons</url>
 	<description>spring framework commons package</description>
-
-	<!--许可证-->
-	<licenses>
-		<license>
-			<name>MIT License</name>
-			<url>http://www.opensource.org/licenses/mit-license.php</url>
-		</license>
-	</licenses>
-	<!--开发者-->
-	<developers>
-		<developer>
-			<name>devil-ycl</name>
-			<email>28********6@qq.com</email>
-			<url>https://github.com/devil-ycl</url>
-		</developer>
-	</developers>
 
 	<properties>
 		<java.version>1.8</java.version>
@@ -153,10 +137,40 @@
 	</dependencies>
 
 
+	<!--许可证-->
+	<licenses>
+		<license>
+			<name>MIT License</name>
+			<url>http://www.opensource.org/licenses/mit-license.php</url>
+		</license>
+	</licenses>
+	<!--开发者-->
+	<developers>
+		<developer>
+			<name>devil-ycl</name>
+			<email>28********6@qq.com</email>
+			<url>https://github.com/devil-ycl</url>
+		</developer>
+	</developers>
+
+	<scm>
+		<connection>https://github.com/devil-ycl/ycl.springframework.boot.commons.git</connection>
+		<developerConnection>https://github.com/devil-ycl/ycl.springframework.boot.commons.git</developerConnection>
+		<url>https://github.com/devil-ycl/ycl.springframework.boot.commons.git</url>
+	</scm>
+
 	<distributionManagement>
-		<repository>
+		<!--<repository>
 			<id>ossrh</id>
 			<url>http://mvnrepository.com/</url>
+		</repository>-->
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
+		</snapshotRepository>
+		<repository>
+			<id>ossrh</id>
+			<url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
 		</repository>
 	</distributionManagement>
 
@@ -165,17 +179,7 @@
 			<id>release</id>
 			<build>
 				<plugins>
-					<plugin>
-						<groupId>org.sonatype.plugins</groupId>
-						<artifactId>nexus-staging-maven-plugin</artifactId>
-						<version>1.6.7</version>
-						<extensions>true</extensions>
-						<configuration>
-							<serverId>ossrh</serverId>
-							<nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
-							<autoReleaseAfterClose>true</autoReleaseAfterClose>
-						</configuration>
-					</plugin>
+					<!--maven-source-plugin:2.2.1-->
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-source-plugin</artifactId>
@@ -189,6 +193,7 @@
 							</execution>
 						</executions>
 					</plugin>
+					<!--maven-javadoc-plugin:2.9.1-->
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-javadoc-plugin</artifactId>
@@ -207,6 +212,7 @@
 							</additionalJOptions>
 						</configuration>
 					</plugin>
+					<!--maven-gpg-plugin:1.6-->
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-gpg-plugin</artifactId>
