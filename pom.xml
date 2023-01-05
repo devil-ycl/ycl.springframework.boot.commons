@@ -179,6 +179,18 @@
 			<id>release</id>
 			<build>
 				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-jar-plugin</artifactId>
+						<version>3.3.0</version>
+						<configuration>
+							<archive>
+								<manifestEntries>
+									<Built-By>dotherick</Built-By>
+								</manifestEntries>
+							</archive>
+						</configuration>
+					</plugin>
 					<!--maven-source-plugin:2.2.1-->
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
@@ -226,6 +238,18 @@
 								</goals>
 							</execution>
 						</executions>
+					</plugin>
+					<!--nexus-staging-maven-plugin:1.6.8-->
+					<plugin>
+						<groupId>org.sonatype.plugins</groupId>
+						<artifactId>nexus-staging-maven-plugin</artifactId>
+						<version>1.6.8</version>
+						<extensions>true</extensions>
+						<configuration>
+							<serverId>ossrh</serverId>
+							<nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+							<autoReleaseAfterClose>true</autoReleaseAfterClose>
+						</configuration>
 					</plugin>
 				</plugins>
 			</build>
